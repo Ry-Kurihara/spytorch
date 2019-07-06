@@ -42,6 +42,6 @@ SNNをRNNの一種としてマッピングすることから始める。RNNと�
 SNNやRNNは時系列的な内部接続性を持ったネットワークでありネットワークの内部状態a[n]は入力x[n]と一時刻前の内部状態a[n-1]の関数であると定義できる。</br>
 一般的なRNNの構造は上に表示されている画像のようになり、計算モデルは下記で表される。
 
-![RNNの計算モデル画像](https://github.com/Ry-Kurihara/spytorch/blob/images/SGLRNN1.png)
+![RNNの計算モデル画像](https://github.com/Ry-Kurihara/spytorch/blob/images/RNNformula.png)
 
 数式の解説については後回し。マークダウンファイルで添字ありの文字をすばやくを書く方法思案中。
