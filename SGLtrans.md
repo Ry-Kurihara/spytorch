@@ -48,4 +48,46 @@ SNNやRNNは時系列的な内部接続性を持ったネットワークであ�
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/RNNformula.png" alt="属性" title="RNNの計算モデル">
 </div>
 
-数式の解説については後回し。マークダウンファイルで添字ありの文字をすばやくを書く方法思案中。
+数式の解説については後回し。マークダウンファイルで添字ありの文字をすばやく書く方法思案中。
+
+l層のi番目のニューロンに対しては、以下の膜電位式で表す事ができる。
+
+<div align="center">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_mem1.png" alt="属性" title="特定の膜電位の計算モデル">
+</div>
+
+Uは膜電位、U_resetは静止膜電位（膜電位が閾値シータを超えてニューロンが発火した場合、膜電位はこの値に戻る）Rは抵抗値、Iがニューロンに流れ込む入力電流。tau_memは膜電位用時定数。この（１）式はニューロンの発火がない場合の状態を記述している。
+
+（１）式を、ニューロンが発火した場合も考慮させると、以下の式になる。（スパイクが発火した場合（シータ - U_reset）だけ膜電位を減衰させる項を追加）
+
+<div align="center">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_mem2.png" alt="属性" title="膜電位の定式化">
+</div>
+
+スパイクによる入力電流と膜電位の状態変化図が下の画像で示されている。
+
+<div align="center">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_synmem1.png" alt="属性" title="スパイク入力電流と膜電位図">
+</div>
+
+入力電流は通常、前ニューロンのシナプス電流の集合として表される。前ニューロンのシナプススパイクをSとすると、Sは以下のように表される。
+
+<div align="center">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_spike1.png" alt="属性" title="シナプススパイクの定式化">
+</div>
+
+デルタはディラックのデルタ関数を示す。Cは時間窓を示し、sは時間窓内で発火した時刻を示す。つまり発火した回数が左辺の項の数と一致する。
+
+シナプス電流は線形になると仮定して、次のように一次近似される。
+
+<div align="center">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_syn1.png" alt="属性" title="シナプス電流の定式化">
+</div>
+
+tau_synはシナプス電流用時定数。Wが前ニューロンからのシナプススパイクにかかる重み。Vが再帰結合から流れるシナプススパイクにかかる重み。
+
+これをプログラム上で実行することを考えた場合（比較的小さな時間窓で実装することを考えた場合）、次のような式を記述できる。本論文では、Ureset=0, R=1, シータ=1を適用する。
+
+<div align="center">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_syn2.png" alt="属性" title="シナプス電流の定式化、実装版">
+</div>
