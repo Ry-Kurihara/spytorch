@@ -38,14 +38,14 @@ SNNをRNNの一種としてマッピングすることから始める。RNNと�
 使用するニューロンモデルは、計算神経科学で広く使用されている電流ベースのシナプスを持つLIFモデル（LIF with current-based synapses）を使用する。 次に、このモデルを離散時間で再定式化し、バイナリ活性化関数を使用したRNNとの正式な等価性を示す。 LIFニューロンに詳しい読者は、式（5）まで飛ばして構わない。
 
 <div align="center">
-<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGLRNN1.png" alt="属性" title="RNNの伝播モデル">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGLRNN1.png" alt="RNNの伝播モデル" title="RNNの伝播モデル">
 </div>
 
 SNNやRNNは時系列的な内部接続性を持ったネットワークでありネットワークの内部状態a[n]は入力x[n]と一時刻前の内部状態a[n-1]の関数であると定義できる。</br>
 一般的なRNNの構造は上に表示されている画像のようになり、計算モデルは下記で表される。
 
 <div align="center">
-<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/RNNformula.png" alt="属性" title="RNNの計算モデル">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/RNNformula.png" alt="RNNの計算モデル" title="RNNの計算モデル">
 </div>
 
 数式の解説については後回し。マークダウンファイルで添字ありの文字をすばやく書く方法思案中。
@@ -53,7 +53,7 @@ SNNやRNNは時系列的な内部接続性を持ったネットワークであ�
 l層のi番目のニューロンに対しては、以下の膜電位式で表す事ができる。
 
 <div align="center">
-<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_mem1.png" alt="属性" title="特定の膜電位の計算モデル">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_mem1.png" alt="特定の膜電位の計算モデル" title="特定の膜電位の計算モデル">
 </div>
 
 Uは膜電位、U_resetは静止膜電位（膜電位が閾値シータを超えてニューロンが発火した場合、膜電位はこの値に戻る）Rは抵抗値、Iがニューロンに流れ込む入力電流。tau_memは膜電位用時定数。この式はニューロンの発火がない場合の状態を記述している。
@@ -61,19 +61,19 @@ Uは膜電位、U_resetは静止膜電位（膜電位が閾値シータを超え
 上式を、ニューロンが発火した場合も考慮させると、以下の式になる。（スパイクが発火した場合（シータ - U_reset）だけ膜電位を減衰させる項を追加）
 
 <div align="center">
-<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_mem2.png" alt="属性" title="膜電位の定式化">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_mem2.png" alt="膜電位の定式化" title="膜電位の定式化">
 </div>
 
 スパイクによる入力電流と膜電位の状態変化図が下の画像で示されている。
 
 <div align="center">
-<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_synmem1.png" alt="属性" title="スパイク入力電流と膜電位図">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_synmem1.png" alt="スパイク入力電流と膜電位図" title="スパイク入力電流と膜電位図">
 </div>
 
 入力電流は通常、前ニューロンのシナプス電流の集合として表される。前ニューロンのシナプススパイクをSとすると、Sは以下のように表される。
 
 <div align="center">
-<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_spike1.png" alt="属性" title="シナプススパイクの定式化">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_spike1.png" alt="シナプススパイクの定式化" title="シナプススパイクの定式化">
 </div>
 
 デルタはディラックのデルタ関数を示す。Cは時間窓を示し、sは時間窓内で発火した時刻を示す。つまり発火した回数が左辺の項の数と一致する。
@@ -81,7 +81,7 @@ Uは膜電位、U_resetは静止膜電位（膜電位が閾値シータを超え
 シナプス電流は線形になると仮定して、次のように一次近似される。
 
 <div align="center">
-<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_syn1.png" alt="属性" title="シナプス電流の定式化">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_syn1.png" alt="シナプス電流の定式化" title="シナプス電流の定式化">
 </div>
 
 tau_synはシナプス電流用時定数。Wが前ニューロンからのシナプススパイクにかかる重み。Vが再帰結合から流れるシナプススパイクにかかる重み。
@@ -89,13 +89,13 @@ tau_synはシナプス電流用時定数。Wが前ニューロンからのシナ
 これをプログラム上で実行することを考えた場合（比較的小さな時間窓で実装することを考えた場合）、次のような式を記述できる。本論文では、Ureset=0, R=1, シータ=1を適用する。
 
 <div align="center">
-<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_syn2.png" alt="属性" title="シナプス電流の定式化、実装版">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_syn2.png" alt="シナプス電流の定式化、実装版" title="シナプス電流の定式化、実装版">
 </div>
 
 alpha = exp(dt/t_syn)で、0<alpha<1の範囲になるように設定する。膜電位に対しても次のように離散時間式に直す。
 
 <div align="center">
-<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_mem3.png" alt="属性" title="膜電位の定式化、実装版">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_mem3.png" alt="膜電位の定式化、実装版" title="膜電位の定式化、実装版">
 </div>
 
 beta = exp(dt/tau_mem)である。</br>
@@ -119,7 +119,7 @@ RNNを訓練するときは、ネットワークの時間的依存性を考慮�
   - 多くの場合は、特定の時間内に必要な情報を順伝搬方向に伝達させる。例として、順伝搬における前方勾配は次の式のようになる。
 
   <div align="center">
-  <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_forwardweight.png" alt="属性" title="順伝搬における重み更新式">
+  <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/SGL_forwardweight.png" alt="順伝搬における重み更新式" title="順伝搬における重み更新式">
   </div>
 
 回帰重みVに関する勾配も同様にして計算できる。回帰ノードを追加すると、保存する必要のある計算グラフが増加するため、必要メモリ、計算量が増大する。２章で説明するいくつかのアプローチで、これらの計算グラフを単純化させることができる。さらに、The forward methodは、セクションV-Bで説明したように、学習規則が脳内のシナプス可塑性や３因子規則（three-factor rules）に基づいて構成されているため、生物学的な妥当性を持っている。
