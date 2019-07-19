@@ -15,6 +15,8 @@ Tutorial2の入力層への入力は（256, 100, 784）となっている。こ�
   - Spytorchチュートリアル。日本語コメントアウト。
 - SGLtrans.md
   - 元論文の日本語訳&個人的注釈
+- pytorch.md
+  - pytorchの基礎的な関数動作など
 
 ### 進捗
 Tutorial2: 計算グラフの伝搬</br>

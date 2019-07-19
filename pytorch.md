@@ -36,7 +36,7 @@ print(f.grad)
   - 分岐ルートの値を上流からきた値と乗算して下流に流す
 
 <div align="center">
-<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/autograd.png" alt="autogradの計算グラフ" title="autogradの計算グラフ">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/pytorchgrad1.png" alt="autogradの計算グラフ" title="autogradの計算グラフ">
 </div>
 
 ## 関数
