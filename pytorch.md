@@ -44,6 +44,9 @@ print(f.grad)
 要素が1の次元を削減する
 
 ### 詰まったところ
+
+- torch.max
+
 torch.maxでは、2要素の返り値があるが、indicesプロパティのほうには計算履歴が残らない。
 
 ```
@@ -51,4 +54,104 @@ a = torch.tensor([1.0, 2.0, 3.0], requires_grad=True)
 
 >>>torch.max(a, 0)
 #torch.return_types.max(values=tensor(3., grad_fn=<MaxBackward0>), indices=tensor(2))
+```
+
+- torch.Tensor.numpy()
+
+この関数では、計算グラフを持ったTensorに適用することができない。以下のようなエラー文が出る。なので、Tensor.detach()によって計算グラフの情報を消去してからnumpyへ変換することが推奨される。
+
+```
+>>>tensor1
+#tensor([ 71.,  79.,  84.,  91.,  97., 101., 104., 107., 108., 109., 108., 106.,
+        106., 103., 100.,  95.,  90.,  84.,  77.,  70.,  64.,  54.,  47.,  39.,
+         34.,  29.,  22.,  12.,   9.,   5.,   0.,   0.,   0.,   0.,   0.,   0.,
+          0.,   0.,   0.,   0.,   2.,   7.,  15.,  21.,  25.,  35.,  43.,  48.,
+         54.,  64.,  71.,  79.,  84.,  91.,  97., 101., 104., 107., 108., 109.,
+        108., 106., 106., 103., 100.,  95.,  90.,  84.,  77.,  70.,  64.,  54.,
+         47.,  39.,  34.,  29.,  22.,  12.,   9.,   5.,   0.,   0.,   0.,   0.,
+          0.,   0.,   0.,   0.,   0.,   0.,   2.,   7.,  15.,  21.,  25.,  35.,
+         43.], grad_fn=<CopyBackwards>)
+
+>>>tensor1.numpy()
+#RuntimeError: Can't call numpy() on Variable that requires grad. Use var.detach().numpy() instead.
+```
+
+- torch.Tensor.backward()
+
+1回呼び出した情報をもう一回呼び出すとエラーになる。エラーを回避するためには引数にretain_graph=Trueを設定する必要がある。
+
+```
+>>>f.backward()
+#Trying to backward through the graph a second time, but the buffers have already been freed. Specify retain_graph=True when calling backward the first time.
+
+###純粋に足されていく
+>>>f.backward(retain_graph=True)
+>>>w.grad
+#tensor(8.0)
+>>>f.backward(retain_graph=True)
+>>>w.grad
+#tensor(16.0)
+```
+
+- 特定の範囲の値が入ったインデックスに対して操作する
+
+```
+inpt = torch.randn(3,5, dtype=dtype)
+>>>inpt
+#tensor([[-0.0678, -1.1650,  0.4382, -0.0260,  1.3923],
+        [-0.7038,  0.3360,  1.0169, -1.1304,  0.3695],
+        [-0.0491, -1.4775, -2.2848,  0.9594, -0.2495]])
+
+outen = torch.zeros_like(inpt)
+outen[[-5.0<inpt] and [inpt<-1.0]] = 8.0 #-5.0 < inpt < -1.0とは指定できない
+>>>outen
+#tensor([[0., 8., 0., 0., 0.],
+        [0., 0., 0., 8., 0.],
+        [0., 8., 8., 0., 0.]])
+```
+
+- torch.topk()
+
+Tensor中の最大値とそのインデックスを返す。引数で昇順に数値をいくつ見つけるかを指定する。
+
+```
+fi = torch.randn(4,3)
+>>>fi
+#tensor([[-0.0879,  1.2384,  0.3714],
+        [ 0.6582,  0.4486,  1.1292],
+        [ 0.7334, -1.0504,  0.9428],
+        [ 1.9731, -0.2247,  0.6539]])
+
+>>>fi.topk(2)
+#torch.return_types.topk(values=tensor([[1.2384, 0.3714],
+        [1.1292, 0.6582],
+        [0.9428, 0.7334],
+        [1.9731, 0.6539]]), indices=tensor([[1, 2],
+        [2, 0],
+        [2, 0],
+        [0, 2]]))
+```
+
+- torch.cat()
+
+Tensorの連結dimで連結する次元を指定。dim=0で0次元要素、dim=1で1次元要素がそれぞれ一致している必要がある。
+
+```
+tensor1 = torch.tensor([[1,1,1],[1,1,1],[1,1,1]])
+tensor2 = torch.tensor([[2,2],[2,2],[2,2]])
+
+>>>print("1size{}and2size{}".format(tensor1.size(), tensor2.size()))
+#1sizetorch.Size([3, 3])and2sizetorch.Size([3, 2])
+```
+
+dimの考え方として、Tensor.Sizeの右側から数えていくとわかりやすい。dim=0だと3と2で一致しないのでエラーになる。dim=1で3と3になり一致するので連結できる。
+
+```
+>>>torch.cat((tensor1, tensor2), dim=0)
+RuntimeError: invalid argument 0: Sizes of tensors must match except in dimension 0. Got 3 and 2 in dimension 1 at /pytorch/aten/src/TH/generic/THTensor.cpp:711
+
+>>>torch.cat((tensor1, tensor2), dim=1)
+tensor([[1, 1, 1, 2, 2],
+        [1, 1, 1, 2, 2],
+        [1, 1, 1, 2, 2]])
 ```
