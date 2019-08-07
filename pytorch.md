@@ -1,10 +1,55 @@
 # Pytorch 実装
 
 ## 概要
+- 自動微分
+- 関数
+
+## ネットワーク
+- nn.Module
+
+### パラメータの更新
+- for文を用いた直接更新
+
+nn.Moduleを継承して作成したネットワークのインスタンスに対してparametersメソッドを使うと、ネットワークの学習パラメータのみ抜き出すことが出来る。内部的にどんな処理が行われているかの可読性が上がるメリットがある。SGDなどの最適化手法であれば簡潔に記述できるが、Adamなど複雑な最適化手法ではかえって可読性が下がる可能性もある。
+
+```
+SGDを用いたパラメータ更新例
+
+model = LSTM(4, 5, 3)
+
+例1
+for param in model.parameters():
+  param.data -= learnng_rate * param.grad.data
+
+例2
+for param in model.parameters():
+  param.data.add(-learning_rate, param.grad.data)
+### param.data = param.data + -learning_rate*param.grad.data
+```
+
+- torch.optimを使った更新
+
+torch.optim.（Adam, Adamax, etc）クラス？にmodel.parameters()を引数としてインスタンスを作成し、更新を行っていく。こちらの書き方のほうが良く用いられている。
+
+```
+Adamを用いたパラメータ更新例
+
+model = LSTM(4,5,3)
+
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+for e in range(Epoch):
+  ---
+  ---
+  optimizer.zero_grad()
+  loss.backward()
+  optimizer.step()
+```
+
+## 自動微分
+- torch.autograd
+
 Pytorchにおける自動識別用のコアパッケージ。順方向フェーズで実行する操作を記憶し、逆方向フェーズで操作を再生する。
 Torchクラスの引数requieres_grad=Trueと指定することで追跡が可能になる。
-
-### 実践
 
 ```
 a = torch.tensor([1.0, 2.0, 3.0], requires_grad=True)
