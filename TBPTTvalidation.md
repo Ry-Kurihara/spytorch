@@ -82,5 +82,23 @@
 - epoch=10：ほとんど周期や振幅を記憶できていない。
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/epoch10.png" alt="epoch10">
 
-- epoch100：このあたりで大まかな傾向は学習できているっぽい。
+- epoch=100：このあたりで大まかな傾向は学習できているっぽい。
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/epoch100.png" alt="epoch100">
+
+#### 展開時間サイズ変化
+|変数名|意味|値|
+|---|---|---|
+|learning_rate|学習率|1e-3|
+|epoch|学習回数|1000|
+|time_size|展開時間サイズ|Variable|
+
+#### 学習
+全体的に時間展開サイズが大きくなるほど必要な学習回数は増えていく傾向がある。時間展開サイズが大きくなれば学習する必要があるネットワークが大きくなるのと同義なので当たり前の結果と言えそう。
+
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/learn_1-60_0-1000.png" alt="1-60_0-1000">
+
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/learn_1-10_1-1000.png" alt="1-10_0-1000">
+
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/learn_1-30_700-1000.png" alt="1_30_700-1000">
+
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/learn_1-10_400-1000.png" alt="1-10_400-1000">
