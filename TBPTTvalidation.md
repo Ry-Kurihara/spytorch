@@ -51,12 +51,12 @@
 |epoch|学習回数|1000|
 |time_size|展開時間サイズ|6|
 
+- lr=1e-2(0.01)
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/1e-3.png" alt="lr=1e-2" title="lr=1e-2">
-lr=1e-2(0.01)のときの予測グラフ。
 
+- lr=1e-3(0.01)
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/1e-3.png" alt="lr=1e-3" title="lr=1e-3">
-lr=1e-3(0.001)のときの予測グラフ。
 
+- lr=1e-4(0.01)
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/1e-3.png" alt="lr=1e-4" title="lr=1e-4">
-lr=1e-4(0.0001)のときの予測グラフ。
 
