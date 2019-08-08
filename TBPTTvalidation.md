@@ -45,21 +45,21 @@
 
 パラメータを変えて変化を検証してみる。
 
+#### 学習率変化
 |変数名|意味|値|
 |---|---|---|
 |learning_rate|学習率|Variable|
 |epoch|学習回数|1000|
 |time_size|展開時間サイズ|6|
 
-#### 学習率変化
-##### 学習
+#### 学習
 1e-2が一番収束が早いが、最終的なlossは1e-3が最も小さい。
 
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/loss0-1000.png" alt="0-1000">
 
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/loss700-1000.png" alt="700-1000">
 
-##### 推論
+#### 推論
 - lr=1e-2(0.01)：予測周期以降少し振幅と周波数が大きくなってしまいズレている。
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/1e-2.png" alt="lr=1e-2" title="lr=1e-2">
 
@@ -70,4 +70,17 @@
 - lr=1e-4(0.0001)：振幅がかなり小さくなっている。
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/lr1e-4.png" alt="lr=1e-4" title="lr=1e-4">
 
+#### 学習回数変化
+|変数名|意味|値|
+|---|---|---|
+|learning_rate|学習率|1e-3|
+|epoch|学習回数|Variable|
+|time_size|展開時間サイズ|6|
 
+#### 推論
+
+- epoch=10：ほとんど周期や振幅を記憶できていない。
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/epoch10.png" alt="epoch10">
+
+- epoch100：このあたりで大まかな傾向は学習できているっぽい。
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/epoch100.png" alt="epoch100">
