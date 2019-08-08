@@ -50,3 +50,7 @@
 |learning_rate|学習率|2e-4|
 |epoch|学習回数|1000|
 |time_size|展開時間サイズ|Variable|
+
+<div align="center">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/1e-3.png" alt="autogradの計算グラフ" title="autogradの計算グラフ">
+</div>
