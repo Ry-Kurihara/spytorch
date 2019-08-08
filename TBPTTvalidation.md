@@ -104,14 +104,19 @@
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/learn_1-10_400-1000.png" alt="1-10_400-1000">
 
 #### 推論
-ノイズもほとんど入っていない（整数に直すときに少数が切り落とされるのが強いていえばノイズ）正弦波予測なので、実は時系列的な記憶が必要ない簡単な問題ということもありどの時間展開サイズでもあまり変わらない。time_size=1では完全に収束したはずだがそこまで予測波形が綺麗ではないことを考えると、簡単とはいえ多少時間的な記憶をしたほうが良いみたい。time=10あたりが一番性格な予測となっている。time_size=30やtime_size=60では単純にEpoch1000ではまだ学習が足りてないかもしれない。
+ノイズもほとんど入っていない（整数に直すときに少数が切り落とされるのが強いていえばノイズ）正弦波予測なので、実は時系列的な記憶が必要ない簡単な問題ということもありどの時間展開サイズでもあまり変わらない。time_size=1では完全に収束したはずだがそこまで予測波形が綺麗ではないことを考えると、簡単とはいえ多少時間的な記憶をしたほうが良いみたい。time=10あたりが一番正確な予測となっている。time_size=30やtime_size=60では単純にEpoch1000ではまだ学習が足りてないかもしれない。
 
+- time_size=1
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/pre_time1.png" alt="pre_time1">
 
+- time_size=2
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/pre_time2.png" alt="pre_time2">
 
+- time_size=10
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/pre_time10.png" alt="pre_time10">
 
+- time_size=30
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/pre_time30.png" alt="pre_time30">
 
+- time_size=60
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/pre_time60.png" alt="pre_time60">
