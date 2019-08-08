@@ -51,6 +51,15 @@
 |epoch|学習回数|1000|
 |time_size|展開時間サイズ|6|
 
+#### 学習率変化
+##### 学習
+1e-2が一番収束が早いが、最終的なlossは1e-3が最も小さい。
+
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/loss0-1000.png" alt="0-1000">
+
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/loss700-1000.png" alt="700-1000">
+
+##### 推論
 - lr=1e-2(0.01)：予測周期以降少し振幅と周波数が大きくなってしまいズレている。
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/1e-2.png" alt="lr=1e-2" title="lr=1e-2">
 
