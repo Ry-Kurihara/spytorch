@@ -39,7 +39,7 @@
   - 入力総データ数は（steps_per_cycles*number_of_cycles-units_input）によって1997と求められる。</br>
   総データのうち、最初の入力分の3データは教師値として用いることは無く、最後のデータは入力値として用いることはない。
 - sin_input（入力データ）
-  - この実験条件での入力データのサイズはtorch.Size([62, 32, 3])である。[系列、バッチサイズ、入力次元]の並びとなっている。これより、time_sizeは最大でも62までしか設定できないことがわかる。現状のプログラムでは、例えばバッチサイズが10の場合、最後に残った2系列分は学習を行わないようになっているため、入力系列に対して余りのないように展開時間サイズを設定することが推奨される。
+  - この実験条件での入力データのサイズはtorch.Size([62, 32, 3])である。[系列、バッチサイズ、入力次元]の並びとなっている。これより、time_sizeは最大でも62までしか設定できないことがわかる。現状のプログラムでは、例えばバッチサイズが10の場合、最後に残った2系列分は学習を行わないようになっているため、入力系列に対して余りが0、または少なくなるように展開時間サイズを設定することが推奨される。
 
 ### 実験結果
 
@@ -47,10 +47,16 @@
 
 |変数名|意味|値|
 |---|---|---|
-|learning_rate|学習率|2e-4|
+|learning_rate|学習率|Variable|
 |epoch|学習回数|1000|
-|time_size|展開時間サイズ|Variable|
+|time_size|展開時間サイズ|6|
 
-<div align="center">
-<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/1e-3.png" alt="autogradの計算グラフ" title="autogradの計算グラフ">
-</div>
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/1e-3.png" alt="lr=1e-2" title="lr=1e-2">
+lr=1e-2(0.01)のときの予測グラフ。
+
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/1e-3.png" alt="lr=1e-3" title="lr=1e-3">
+lr=1e-3(0.001)のときの予測グラフ。
+
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/1e-3.png" alt="lr=1e-4" title="lr=1e-4">
+lr=1e-4(0.0001)のときの予測グラフ。
+
