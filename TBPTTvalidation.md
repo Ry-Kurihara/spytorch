@@ -52,11 +52,11 @@
 |time_size|展開時間サイズ|6|
 
 - lr=1e-2(0.01)
-<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/1e-3.png" alt="lr=1e-2" title="lr=1e-2">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/1e-2.png" alt="lr=1e-2" title="lr=1e-2">
 
-- lr=1e-3(0.01)
+- lr=1e-3(0.001)
 <img src="https://github.com/Ry-Kurihara/spytorch/blob/images/1e-3.png" alt="lr=1e-3" title="lr=1e-3">
 
-- lr=1e-4(0.01)
-<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/1e-3.png" alt="lr=1e-4" title="lr=1e-4">
+- lr=1e-4(0.0001)
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/1e-4.png" alt="lr=1e-4" title="lr=1e-4">
 
