@@ -7,6 +7,9 @@
 ## ネットワーク
 - nn.Module
 
+### nn.RNN
+(seq_len, batch, input_size)の形状のテンソルを入力する。通常のnn.Linearのみだけで構成させるネットワークと比較すると、系列をまとめて入力できる利点がある。入力系列が時々刻々と変化していく場合にはnn.RNNは適さないかも。また、引数batch_firstをTrueにすると(batch, seq_len, input_size)として入力でき、Tensor.transpose(n,m)でわざわざ次元入れ替えをする必要がなくなる。
+
 ### パラメータの更新
 - for文を用いた直接更新
 
