@@ -61,10 +61,10 @@
 1e-2が一番収束が早いが、最終的なlossは1e-3が最も小さい。
 
 - time_size=1-128：時間窓分、128ステップ分時間展開した後逆伝搬。つまり1データにつき1回逆伝搬を行う。lossとしては4くらいまで下がる。lossとしては、1データの真値と出力値の差が当てはまる。できれば1以下になってほしいところ。
-<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/epoch100_time_step128.png" alt="0-1000">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/epoch100time_step128.png" alt="0-1000">
 
 - time_size=3-384：少し大まかな傾向を掴もうとしている感じが見て取れるかも。
-<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/lr2e-3_timesize3.png" alt="0-1000">
+<img src="https://github.com/Ry-Kurihara/spytorch/blob/images/lr2e-3timesize3.png" alt="0-1000">
 
 #### 学習回数変化
 |変数名|意味|値|
